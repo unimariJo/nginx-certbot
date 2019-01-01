@@ -8,7 +8,7 @@ staging=0 # Set to 1 if you're testing your setup to avoid hitting request limit
 
 if [ "$EUID" -ne 0 ]; then
   read -p "You ran this script without root privileges, do you want to continue? (Y/n) " decision
-  if [ "$decision" != "n" ] && [ "$decision" != "N" ]; then
+  if [ "$decision" = "n" ] || [ "$decision" = "N" ]; then
     exit
   fi
 fi
