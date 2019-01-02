@@ -3,6 +3,8 @@
 > This repository is accompanied by a [step-by-step guide on how to
 set up nginx and Let’s Encrypt with Docker](https://medium.com/@pentacent/nginx-and-lets-encrypt-with-docker-in-less-than-5-minutes-b4b8a60d3a71).
 
+> This fork requests separate Let's Encrypt certificate for each domain unlike the original repository (original repository generates one certificate for all domains). It can be useful when you want to add one more domain without regenerating certificates of other domains.
+
 `init-letsencrypt.sh` fetches and ensures the renewal of a Let’s Encrypt certificate for one or multiple domains in a docker-compose setup with nginx.
 This is useful when you need to set up nginx as a reverse proxy for an application.
 
