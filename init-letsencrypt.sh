@@ -69,5 +69,5 @@ for domain in "${domains[@]}"; do
   $staging_arg $email_arg --rsa-key-size $rsa_key_size --agree-tos --force-renewal" certbot
 done
 
-echo "### Reloading nginx ..."
-docker-compose exec nginx nginx -s reload
+echo "### Restarting nginx and certbot ..."
+docker-compose up -d --force-recreate
