@@ -32,7 +32,8 @@ for domain in "${domains[@]}"; do
   if [ -d "$data_path/conf/live/$domain" ]; then
     read -p "There is already folder with $domain domain data, do you want to remove it? (Y/n) " decision
     case $decision in
-      [Y]* ) rm -rf "$data_path/conf/live/$domain" && mkdir -p "$data_path/conf/live/$domain";;
+      [Y]* ) rm -Rf "$data_path/conf/archive/$domain" && rm -Rf "$data_path/conf/live/$domain" && \
+      rm -Rf "$data_path/conf/renewal/$domain.conf" && mkdir -p "$data_path/conf/live/$domain";;
       [n]* ) domains=(${domains[@]/$domain});;
     esac
   else
@@ -62,7 +63,7 @@ if [ $staging != "0" ]; then staging_arg="--staging"; fi
 
 for domain in "${domains[@]}"; do
   echo "### Deleting dummy certificate for $domain domain ..."
-  rm -rf "$data_path/conf/live/$domain"
+  rm -Rf "$data_path/conf/live/$domain"
 
   echo "### Requesting Let's Encrypt certificate for $domain domain ..."
   mkdir -p "$data_path/www"
