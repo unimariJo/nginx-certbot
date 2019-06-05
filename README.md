@@ -1,33 +1,22 @@
-# Boilerplate for nginx with Let’s Encrypt on docker-compose
+# Nginx with Let's Encrypt
 
-> This repository is accompanied by a [step-by-step guide on how to
-set up nginx and Let’s Encrypt with Docker](https://medium.com/@pentacent/nginx-and-lets-encrypt-with-docker-in-less-than-5-minutes-b4b8a60d3a71).
+## Description
+> This fork requests separate Let's Encrypt certificate for each domain unlike the original repository, includes some additions and fixes.
 
-> This fork requests separate Let's Encrypt certificate for each domain unlike the original repository (original repository generates one certificate for all domains). It can be useful when you want to add one more domain without regenerating certificates of other domains.
+`setup.sh` fetches and ensures the renewal of a Let’s Encrypt certificate for one or multiple domains in a docker-compose setup with nginx.
 
-`init-letsencrypt.sh` fetches and ensures the renewal of a Let’s Encrypt certificate for one or multiple domains in a docker-compose setup with nginx.
-This is useful when you need to set up nginx as a reverse proxy for an application.
-
-## Installation
+## Usage
 1. [Install docker-compose](https://docs.docker.com/compose/install/#install-compose).
 
-2. Clone this repository: `git clone https://github.com/unimarijo/nginx-certbot.git .`
+2. Clone this repository: `git clone https://github.com/unimarijo/nginx-certbot.git .`.
 
 3. Modify configuration:
-- Add domains and email addresses to init-letsencrypt.sh
-- Replace all occurrences of example.org with primary domain (the first one you added to init-letsencrypt.sh) in data/nginx/app.conf
+- Add domains (recommended: add the valid email address too) to setup.sh;
+- Replace all occurrences of example.org with your domain (the domain you added to setup.sh) in data/nginx/app.conf.
 
-4. Run init the script:
-```
-chmod +x ./init-letsencrypt.sh
-./init-letsencrypt.sh
-```
+4. Run the script: `chmod +x ./setup.sh && ./setup.sh`
 
-5. Run server:
-`docker-compose up`
-
-## Got questions?
-Feel free to post questions in the comment section of the [accompanying guide](https://medium.com/@pentacent/nginx-and-lets-encrypt-with-docker-in-less-than-5-minutes-b4b8a60d3a71)
+5. Run server: `docker-compose up`
 
 ## License
 All code in this repository is licensed under the terms of the `MIT License`. For further information please refer to the `LICENSE` file.

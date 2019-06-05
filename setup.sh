@@ -1,10 +1,15 @@
 #!/bin/bash
 
-domains=(example.com example.org)
+domains=(example.org)
 rsa_key_size=4096
 data_path="./data/certbot"
 email="" # Adding a valid address is strongly recommended
-staging=0 # Set to 1 if you're testing your setup to avoid hitting request limits
+staging=0 # Set to 1 if you're testing your setup to avoid hitting Let's Encrypt request limits
+
+if ! [ -x "$(command -v docker-compose)" ]; then
+	echo "Sorry, you don't have docker-compose installed, please read README.md." >&2
+	exit 1
+fi
 
 if [ "$EUID" -ne 0 ]; then
   read -p "You ran this script without root privileges, do you want to continue? (Y/n) " decision
@@ -13,9 +18,7 @@ if [ "$EUID" -ne 0 ]; then
   fi
 fi
 
-
 if [ ! -d "$data_path" ]; then mkdir -p "$data_path"; fi
-
 
 if [ ! -e "$data_path/conf/options-ssl-nginx.conf" ] || [ ! -e "$data_path/conf/ssl-dhparams.pem" ]; then
   echo "### Downloading recommended TLS parameters ..."
@@ -24,7 +27,6 @@ if [ ! -e "$data_path/conf/options-ssl-nginx.conf" ] || [ ! -e "$data_path/conf/
   curl -s https://raw.githubusercontent.com/certbot/certbot/master/certbot/ssl-dhparams.pem > "$data_path/conf/ssl-dhparams.pem"
   echo
 fi
-
 
 for domain in "${domains[@]}"; do
   if [ -d "$data_path/conf/live/$domain" ]; then
@@ -37,7 +39,6 @@ for domain in "${domains[@]}"; do
     mkdir -p "$data_path/conf/live/$domain"
   fi
 done
-
 
 for domain in "${domains[@]}"; do
   echo "### Creating dummy certificate for $domain domain..."
