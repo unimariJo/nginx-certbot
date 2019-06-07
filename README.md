@@ -9,9 +9,9 @@
 
 2. Modify the configuration to suit your needs:
 - Add domains (recommended: add the valid email address too) to setup.sh;
-- Replace all occurrences of example.org with your domain (the domain you added to setup.sh) in data/nginx/app.conf.
+- Replace all occurrences of example.org with your domain (the domain you added to setup.sh) in data/nginx/app.conf;
 
-3. Run the script: `chmod +x ./setup.sh && ./setup.sh`;
+3. Run the script: `chmod +x ./setup.sh && ./setup.sh`.
 
 ## License
 All code in this repository is licensed under the terms of the `MIT License`. For further information please refer to the `LICENSE` file.
