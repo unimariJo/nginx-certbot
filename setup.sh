@@ -1,6 +1,6 @@
 #!/bin/bash
 
-domains=(example.org)
+domains=(example.org www.example.org)
 rsa_key_size=4096
 data_path="./data/certbot"
 email="" # Adding a valid address is strongly recommended
@@ -29,10 +29,11 @@ fi
 for domain in "${domains[@]}"; do
     if [ -d "$data_path/conf/live/$domain" ]; then
         read -rp "Existing data for domain $domain was found, do you want to remove it and issue a new certificate? (Y/n) " decision
+        # shellcheck disable=SC2206
         case $decision in
             [Y]* ) rm -Rf "$data_path/conf/archive/$domain" && rm -Rf "$data_path/conf/live/$domain" && \
             rm -Rf "$data_path/conf/renewal/$domain.conf" && mkdir -p "$data_path/conf/live/$domain";;
-            [n]* ) domains=("${domains[@]/$domain}");;
+            [n]* ) domains=(${domains[@]/$domain});;
         esac
     else
         mkdir -p "$data_path/conf/live/$domain"
